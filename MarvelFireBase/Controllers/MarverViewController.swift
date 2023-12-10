@@ -34,11 +34,11 @@ final class MarverViewController: UIViewController {
         self.heroImageView = uiManager.heroImageView()
         self.nameLabel = uiManager.nameLabel()
         self.descriptionLabel = uiManager.descriptionLabel()
-        self.vStack = uiManager.vStack()
+        self.vStack = uiManager.buildStack(axis: .vertical, spacing: 5)
         self.spider_man_button = uiManager.spider_man_button()
         self.dead_pool_button = uiManager.dead_pool_button()
         self.venom_button = uiManager.venom_button()
-        self.hStack = uiManager.hStack()
+        self.hStack = uiManager.buildStack(axis: .horizontal, spacing: 5)
         self.spinner = uiManager.spinner()
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,7 +49,6 @@ final class MarverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         confifureUI()
         self.spider_man_button.addTarget(self, action: #selector(spider_man_tapped), for: .touchUpInside)
         self.dead_pool_button.addTarget(self, action: #selector(dead_pool_tapped), for: .touchUpInside)
@@ -142,7 +141,7 @@ private extension MarverViewController {
             }
         }
     }
-    
+    //MARK: - Setup constrints
     private func confifureUI() {
         
         view.addSubview(heroImageView)
@@ -168,8 +167,8 @@ private extension MarverViewController {
             heroImageView.widthAnchor.constraint(equalToConstant: 300),
             heroImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            vStack.topAnchor.constraint(equalTo: heroImageView.bottomAnchor, constant: 20),
-            vStack.heightAnchor.constraint(equalToConstant: 80),
+            vStack.topAnchor.constraint(equalTo: heroImageView.bottomAnchor, constant: 10),
+            vStack.heightAnchor.constraint(equalToConstant: 100),
             vStack.widthAnchor.constraint(equalToConstant: 300),
             vStack.leadingAnchor.constraint(equalTo: heroImageView.leadingAnchor),
             
