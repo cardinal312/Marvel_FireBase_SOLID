@@ -11,92 +11,35 @@ final class MarverViewController: UIViewController {
     
     //MARK: - Veriables
     private var dataBaseManager: DataBaseManagerProtocol
+    private var uiManager: UIManagerFactoryProtocol
+    private var coreDataManager: CoreDataManagerProtocol
     
     //MARK: - UI Components
-    private let heroImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "person"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .gray
-        imageView.backgroundColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 12
-        return imageView
-    }()
-    
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.text = "Name label"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.text = "Description label"
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let vStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.spacing = 5
-        return stack
-    }()
-    
-    private let spider_man_button: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 115, height: 30))
-        button.setTitle("Spider-Man", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .red.withAlphaComponent(0.5)
-        button.tintColor = .white
-        button.addTarget(self, action: #selector(spider_man_tapped), for: .touchUpInside)
-        button.layer.cornerRadius = 12
-        return button
-    }()
-    
-    private let dead_pool_button: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 115, height: 30))
-        button.setTitle("Dead Pool", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .red.withAlphaComponent(0.5)
-        button.tintColor = .white
-        button.addTarget(self, action: #selector(dead_pool_tapped), for: .touchUpInside)
-        button.layer.cornerRadius = 12
-        return button
-    }()
-    
-    private let venom_button: UIButton = {
-        let button = UIButton()
-        button.setTitle("Venom", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .black.withAlphaComponent(0.5)
-        button.tintColor = .white
-        button.addTarget(self, action: #selector(venom_tapped), for: .touchUpInside)
-        button.layer.cornerRadius = 12
-        return button
-    }()
-    
-    private let hStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        stack.spacing = 5
-        stack.distribution = .fillEqually
-        return stack
-    }()
+    private var heroImageView: UIImageView
+    private var nameLabel: UILabel
+    private let descriptionLabel: UILabel
+    private let vStack: UIStackView
+    private let spider_man_button: UIButton
+    private let dead_pool_button: UIButton
+    private let venom_button: UIButton
+    private let hStack: UIStackView
+    private let spinner: UIActivityIndicatorView
     
     //MARK: - Lifecycle
-    init(dataBaseManager: DataBaseManagerProtocol) {
+    init(dataBaseManager: DataBaseManagerProtocol, uiManager: UIManagerFactoryProtocol,coreDataManager: CoreDataManagerProtocol) {
         self.dataBaseManager = dataBaseManager
+        self.uiManager = uiManager
+        self.coreDataManager = coreDataManager
+        
+        self.heroImageView = uiManager.heroImageView()
+        self.nameLabel = uiManager.nameLabel()
+        self.descriptionLabel = uiManager.descriptionLabel()
+        self.vStack = uiManager.vStack()
+        self.spider_man_button = uiManager.spider_man_button()
+        self.dead_pool_button = uiManager.dead_pool_button()
+        self.venom_button = uiManager.venom_button()
+        self.hStack = uiManager.hStack()
+        self.spinner = uiManager.spinner()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -106,48 +49,11 @@ final class MarverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        navigationItem.title = "MARVEL 🔥"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        
         confifureUI()
-    }
-    
-    private func confifureUI() {
-        view.addSubview(heroImageView)
-        view.addSubview(nameLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(vStack)
-        vStack.addArrangedSubview(nameLabel)
-        vStack.addArrangedSubview(descriptionLabel)
-        
-        NSLayoutConstraint.activate([
-            heroImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            heroImageView.heightAnchor.constraint(equalToConstant: 300),
-            heroImageView.widthAnchor.constraint(equalToConstant: 300),
-            heroImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            vStack.topAnchor.constraint(equalTo: heroImageView.bottomAnchor, constant: 20),
-            vStack.heightAnchor.constraint(equalToConstant: 80),
-            vStack.widthAnchor.constraint(equalToConstant: 300),
-            vStack.leadingAnchor.constraint(equalTo: heroImageView.leadingAnchor)
-        ])
-        
-        view.addSubview(spider_man_button)
-        view.addSubview(dead_pool_button)
-        view.addSubview(venom_button)
-        view.addSubview(hStack)
-        hStack.addArrangedSubview(spider_man_button)
-        hStack.addArrangedSubview(dead_pool_button)
-        hStack.addArrangedSubview(venom_button)
-        
-        NSLayoutConstraint.activate([
-            hStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180),
-            hStack.heightAnchor.constraint(equalToConstant: 35),
-            hStack.widthAnchor.constraint(equalToConstant: 350),
-            hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+        self.spider_man_button.addTarget(self, action: #selector(spider_man_tapped), for: .touchUpInside)
+        self.dead_pool_button.addTarget(self, action: #selector(dead_pool_tapped), for: .touchUpInside)
+        self.venom_button.addTarget(self, action: #selector(venom_tapped), for: .touchUpInside)
     }
 }
 
@@ -167,11 +73,14 @@ private extension MarverViewController {
                 print(error.localizedDescription)
             }
         }
-        
+        self.spinner.startAnimating()
         dataBaseManager.getImage(imageName: .spider_man) { [weak self] results in
             switch results {
             case .success(let spider_man):
-                self?.heroImageView.image = spider_man
+                DispatchQueue.main.async {
+                    self?.heroImageView.image = spider_man
+                    self?.spinner.stopAnimating()
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -192,10 +101,14 @@ private extension MarverViewController {
             }
         }
         
+        self.spinner.startAnimating()
         dataBaseManager.getImage(imageName: .dead_pool) { [weak self] results in
             switch results {
             case .success(let dead_pool):
-                self?.heroImageView.image = dead_pool
+                DispatchQueue.main.async {
+                    self?.heroImageView.image = dead_pool
+                    self?.spinner.stopAnimating()
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -216,14 +129,60 @@ private extension MarverViewController {
             }
         }
         
+        self.spinner.startAnimating()
         dataBaseManager.getImage(imageName: .venom) { [weak self] results in
             switch results {
             case .success(let venom):
-                self?.heroImageView.image = venom
+                DispatchQueue.main.async {
+                    self?.heroImageView.image = venom
+                    self?.spinner.stopAnimating()
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func confifureUI() {
+        
+        view.addSubview(heroImageView)
+        view.addSubview(nameLabel)
+        view.addSubview(descriptionLabel)
+        view.addSubview(vStack)
+        vStack.addArrangedSubview(nameLabel)
+        vStack.addArrangedSubview(descriptionLabel)
+        
+        view.addSubview(spider_man_button)
+        view.addSubview(dead_pool_button)
+        view.addSubview(venom_button)
+        view.addSubview(spinner)
+        
+        view.addSubview(hStack)
+        hStack.addArrangedSubview(spider_man_button)
+        hStack.addArrangedSubview(dead_pool_button)
+        hStack.addArrangedSubview(venom_button)
+        
+        NSLayoutConstraint.activate([
+            heroImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            heroImageView.heightAnchor.constraint(equalToConstant: 300),
+            heroImageView.widthAnchor.constraint(equalToConstant: 300),
+            heroImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            vStack.topAnchor.constraint(equalTo: heroImageView.bottomAnchor, constant: 20),
+            vStack.heightAnchor.constraint(equalToConstant: 80),
+            vStack.widthAnchor.constraint(equalToConstant: 300),
+            vStack.leadingAnchor.constraint(equalTo: heroImageView.leadingAnchor),
+            
+            hStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180),
+            hStack.heightAnchor.constraint(equalToConstant: 35),
+            hStack.widthAnchor.constraint(equalToConstant: 350),
+            hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            spinner.topAnchor.constraint(equalTo: vStack.bottomAnchor, constant: 40),
+            spinner.heightAnchor.constraint(equalToConstant: 70),
+            spinner.widthAnchor.constraint(equalToConstant: 70),
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 }
 
