@@ -35,7 +35,6 @@ final class UIManagerFactory: UIManagerFactoryProtocol {
         label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.text = "Name label"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -45,7 +44,6 @@ final class UIManagerFactory: UIManagerFactoryProtocol {
         label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.text = "Description label"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

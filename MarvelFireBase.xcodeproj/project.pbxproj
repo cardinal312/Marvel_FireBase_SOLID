@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FA27526F2B231146002253CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA27526E2B231146002253CF /* AppDelegate.swift */; };
 		FA2752712B231146002253CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2752702B231146002253CF /* SceneDelegate.swift */; };
-		FA2752732B231146002253CF /* MarverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2752722B231146002253CF /* MarverViewController.swift */; };
+		FA2752732B231146002253CF /* MarvelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2752722B231146002253CF /* MarvelViewController.swift */; };
 		FA2752792B231146002253CF /* MarvelFireBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA2752772B231146002253CF /* MarvelFireBase.xcdatamodeld */; };
 		FA27527B2B231147002253CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA27527A2B231147002253CF /* Assets.xcassets */; };
 		FA27527E2B231147002253CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA27527C2B231147002253CF /* LaunchScreen.storyboard */; };
@@ -25,13 +25,14 @@
 		FA5392D52B24414000C33E44 /* UIManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5392D42B24414000C33E44 /* UIManagerFactory.swift */; };
 		FA5392D72B24616700C33E44 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5392D62B24616700C33E44 /* CoreDataManager.swift */; };
 		FA5392D92B24628E00C33E44 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5392D82B24628E00C33E44 /* AppCoordinator.swift */; };
+		FAE470CB2B28841C000BA777 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE470CA2B28841C000BA777 /* Dependencies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FA27526B2B231146002253CF /* MarvelFireBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelFireBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA27526E2B231146002253CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA2752702B231146002253CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FA2752722B231146002253CF /* MarverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarverViewController.swift; sourceTree = "<group>"; };
+		FA2752722B231146002253CF /* MarvelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelViewController.swift; sourceTree = "<group>"; };
 		FA2752782B231146002253CF /* MarvelFireBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MarvelFireBase.xcdatamodel; sourceTree = "<group>"; };
 		FA27527A2B231147002253CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA27527D2B231147002253CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -43,6 +44,7 @@
 		FA5392D42B24414000C33E44 /* UIManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIManagerFactory.swift; sourceTree = "<group>"; };
 		FA5392D62B24616700C33E44 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		FA5392D82B24628E00C33E44 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		FAE470CA2B28841C000BA777 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,10 +82,10 @@
 		FA27526D2B231146002253CF /* MarvelFireBase */ = {
 			isa = PBXGroup;
 			children = (
-				FA27529B2B2383F7002253CF /* Models */,
-				FA27529A2B2383D9002253CF /* Managers */,
-				FA2752992B2383CB002253CF /* Controllers */,
 				FA2752982B2383AB002253CF /* Application */,
+				FA2752992B2383CB002253CF /* Controllers */,
+				FA27529A2B2383D9002253CF /* Managers */,
+				FA27529B2B2383F7002253CF /* Models */,
 				FA27529C2B23841A002253CF /* Supporting */,
 			);
 			path = MarvelFireBase;
@@ -95,6 +97,7 @@
 				FA27526E2B231146002253CF /* AppDelegate.swift */,
 				FA2752702B231146002253CF /* SceneDelegate.swift */,
 				FA5392D82B24628E00C33E44 /* AppCoordinator.swift */,
+				FAE470CA2B28841C000BA777 /* Dependencies.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -102,7 +105,7 @@
 		FA2752992B2383CB002253CF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FA2752722B231146002253CF /* MarverViewController.swift */,
+				FA2752722B231146002253CF /* MarvelViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -219,9 +222,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA2752732B231146002253CF /* MarverViewController.swift in Sources */,
+				FA2752732B231146002253CF /* MarvelViewController.swift in Sources */,
 				FA27526F2B231146002253CF /* AppDelegate.swift in Sources */,
 				FA5392D92B24628E00C33E44 /* AppCoordinator.swift in Sources */,
+				FAE470CB2B28841C000BA777 /* Dependencies.swift in Sources */,
 				FA2752712B231146002253CF /* SceneDelegate.swift in Sources */,
 				FA5392D52B24414000C33E44 /* UIManagerFactory.swift in Sources */,
 				FA2752792B231146002253CF /* MarvelFireBase.xcdatamodeld in Sources */,

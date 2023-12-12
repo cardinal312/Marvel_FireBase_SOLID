@@ -26,7 +26,9 @@ final class AppCoordinator {
     }
     
     func start() {
-        let marvelVC = MarverViewController(dataBaseManager: dataBaseManager, uiManager: uiManager, coreDataManager: coreDataManager)
+        
+        let dependecies = Dependencies(dataBaseManager: dataBaseManager, uiManagerFactory: uiManager, coreDataManager: coreDataManager)
+        let marvelVC = MarvelViewController(dependencies: dependecies)
         marvelVC.view.backgroundColor = .white
         marvelVC.navigationItem.title = "MARVEL 🔥"
         let nav = UINavigationController(rootViewController: marvelVC)

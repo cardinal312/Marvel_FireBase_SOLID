@@ -19,9 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-        self.dataBaseManager = DataBaseManager()
+        
         self.uiManager = UIManagerFactory()
         self.coreDataManager = CoreDataManager()
+        self.dataBaseManager = DataBaseManager(coreDataManager: coreDataManager!)
         
         guard let window = window, let dataBaseManager = dataBaseManager, let uiManager = uiManager, let coreDataManager = coreDataManager else { return }
         

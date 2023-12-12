@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MarverViewController: UIViewController {
+final class MarvelViewController: UIViewController {
     
     //MARK: - Veriables
     private var dataBaseManager: DataBaseManagerProtocol
@@ -26,10 +26,10 @@ final class MarverViewController: UIViewController {
     private let spinner: UIActivityIndicatorView
     
     //MARK: - Lifecycle
-    init(dataBaseManager: DataBaseManagerProtocol, uiManager: UIManagerFactoryProtocol,coreDataManager: CoreDataManagerProtocol) {
-        self.dataBaseManager = dataBaseManager
-        self.uiManager = uiManager
-        self.coreDataManager = coreDataManager
+    init(dependencies: Dependencies) {
+        self.dataBaseManager = dependencies.dataBaseManager
+        self.uiManager = dependencies.uiManagerFactory
+        self.coreDataManager = dependencies.coreDataManager
         
         self.heroImageView = uiManager.heroImageView()
         self.nameLabel = uiManager.nameLabel()
@@ -40,7 +40,17 @@ final class MarverViewController: UIViewController {
         self.venom_button = uiManager.venom_button()
         self.hStack = uiManager.buildStack(axis: .horizontal, spacing: 5)
         self.spinner = uiManager.spinner()
+        
         super.init(nibName: nil, bundle: nil)
+        
+        let coreImage = coreDataManager.heroItemCopy.compactMap { $0.heroImage }
+        self.heroImageView.image = UIImage(data: coreImage.last ?? Data())
+        
+        let coreName = coreDataManager.heroItemCopy.compactMap { $0.name }
+        self.nameLabel.text = coreName.last
+        
+        let coreDesc = coreDataManager.heroItemCopy.compactMap { $0.heroDesc }
+        self.descriptionLabel.text = coreDesc.last
     }
     
     required init?(coder: NSCoder) {
@@ -57,7 +67,7 @@ final class MarverViewController: UIViewController {
 }
 
 // MARK: - Private methods
-private extension MarverViewController {
+private extension MarvelViewController {
     
     @objc private func spider_man_tapped() {
         print(ObjectIdentifier(self))
@@ -72,6 +82,7 @@ private extension MarverViewController {
                 print(error.localizedDescription)
             }
         }
+        
         self.spinner.startAnimating()
         dataBaseManager.getImage(imageName: .spider_man) { [weak self] results in
             switch results {
@@ -141,7 +152,7 @@ private extension MarverViewController {
             }
         }
     }
-    //MARK: - Setup constrints
+    //MARK: - Setup constraints
     private func confifureUI() {
         
         view.addSubview(heroImageView)
