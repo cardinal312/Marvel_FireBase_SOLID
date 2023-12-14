@@ -10,23 +10,14 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    private var dataBaseManager: DataBaseManagerProtocol?
-    private var uiManager: UIManagerFactoryProtocol?
-    private var coreDataManager: CoreDataManagerProtocol? //TODO: - Should be implement
     private var appCoordinator: AppCoordinator?
+    private lazy var dependencies = AppDependency.makeDI()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-        
-        self.uiManager = UIManagerFactory()
-        self.coreDataManager = CoreDataManager()
-        self.dataBaseManager = DataBaseManager(coreDataManager: coreDataManager!)
-        
-        guard let window = window, let dataBaseManager = dataBaseManager, let uiManager = uiManager, let coreDataManager = coreDataManager else { return }
-        
-        self.appCoordinator = AppCoordinator(window: window, dataBaseManager: dataBaseManager, uiManager: uiManager, coreDataManager: coreDataManager)
+        self.appCoordinator = AppCoordinator(window: window, dependencies: dependencies)
         appCoordinator?.start()
     }
     

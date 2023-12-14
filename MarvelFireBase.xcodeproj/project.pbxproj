@@ -25,7 +25,7 @@
 		FA5392D52B24414000C33E44 /* UIManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5392D42B24414000C33E44 /* UIManagerFactory.swift */; };
 		FA5392D72B24616700C33E44 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5392D62B24616700C33E44 /* CoreDataManager.swift */; };
 		FA5392D92B24628E00C33E44 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5392D82B24628E00C33E44 /* AppCoordinator.swift */; };
-		FAE470CB2B28841C000BA777 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE470CA2B28841C000BA777 /* Dependencies.swift */; };
+		FAE470CB2B28841C000BA777 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE470CA2B28841C000BA777 /* AppDependency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +44,7 @@
 		FA5392D42B24414000C33E44 /* UIManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIManagerFactory.swift; sourceTree = "<group>"; };
 		FA5392D62B24616700C33E44 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		FA5392D82B24628E00C33E44 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		FAE470CA2B28841C000BA777 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		FAE470CA2B28841C000BA777 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +97,7 @@
 				FA27526E2B231146002253CF /* AppDelegate.swift */,
 				FA2752702B231146002253CF /* SceneDelegate.swift */,
 				FA5392D82B24628E00C33E44 /* AppCoordinator.swift */,
-				FAE470CA2B28841C000BA777 /* Dependencies.swift */,
+				FAE470CA2B28841C000BA777 /* AppDependency.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -225,7 +225,7 @@
 				FA2752732B231146002253CF /* MarvelViewController.swift in Sources */,
 				FA27526F2B231146002253CF /* AppDelegate.swift in Sources */,
 				FA5392D92B24628E00C33E44 /* AppCoordinator.swift in Sources */,
-				FAE470CB2B28841C000BA777 /* Dependencies.swift in Sources */,
+				FAE470CB2B28841C000BA777 /* AppDependency.swift in Sources */,
 				FA2752712B231146002253CF /* SceneDelegate.swift in Sources */,
 				FA5392D52B24414000C33E44 /* UIManagerFactory.swift in Sources */,
 				FA2752792B231146002253CF /* MarvelFireBase.xcdatamodeld in Sources */,

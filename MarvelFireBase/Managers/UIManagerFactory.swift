@@ -24,9 +24,8 @@ final class UIManagerFactory: UIManagerFactoryProtocol {
         let imageView = UIImageView(image: UIImage(systemName: "person"))
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .gray
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .systemBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 12
         return imageView
     }
     

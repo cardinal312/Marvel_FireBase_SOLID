@@ -10,13 +10,11 @@ import UIKit
 final class MarvelViewController: UIViewController {
     
     //MARK: - Veriables
-    private var dataBaseManager: DataBaseManagerProtocol
-    private var uiManager: UIManagerFactoryProtocol
-    private var coreDataManager: CoreDataManagerProtocol
+    private let dataBaseManager: DataBaseManagerProtocol
     
     //MARK: - UI Components
-    private var heroImageView: UIImageView
-    private var nameLabel: UILabel
+    private let heroImageView: UIImageView
+    private let nameLabel: UILabel
     private let descriptionLabel: UILabel
     private let vStack: UIStackView
     private let spider_man_button: UIButton
@@ -26,30 +24,28 @@ final class MarvelViewController: UIViewController {
     private let spinner: UIActivityIndicatorView
     
     //MARK: - Lifecycle
-    init(dependencies: Dependencies) {
+    init(dependencies: AppDependency) {
         self.dataBaseManager = dependencies.dataBaseManager
-        self.uiManager = dependencies.uiManagerFactory
-        self.coreDataManager = dependencies.coreDataManager
         
-        self.heroImageView = uiManager.heroImageView()
-        self.nameLabel = uiManager.nameLabel()
-        self.descriptionLabel = uiManager.descriptionLabel()
-        self.vStack = uiManager.buildStack(axis: .vertical, spacing: 5)
-        self.spider_man_button = uiManager.spider_man_button()
-        self.dead_pool_button = uiManager.dead_pool_button()
-        self.venom_button = uiManager.venom_button()
-        self.hStack = uiManager.buildStack(axis: .horizontal, spacing: 5)
-        self.spinner = uiManager.spinner()
+        self.heroImageView = dependencies.uiManagerFactory.heroImageView()
+        self.nameLabel = dependencies.uiManagerFactory.nameLabel()
+        self.descriptionLabel = dependencies.uiManagerFactory.descriptionLabel()
+        self.vStack = dependencies.uiManagerFactory.buildStack(axis: .vertical, spacing: 5)
+        self.spider_man_button = dependencies.uiManagerFactory.spider_man_button()
+        self.dead_pool_button = dependencies.uiManagerFactory.dead_pool_button()
+        self.venom_button = dependencies.uiManagerFactory.venom_button()
+        self.hStack = dependencies.uiManagerFactory.buildStack(axis: .horizontal, spacing: 5)
+        self.spinner = dependencies.uiManagerFactory.spinner()
         
         super.init(nibName: nil, bundle: nil)
         
-        let coreImage = coreDataManager.heroItemCopy.compactMap { $0.heroImage }
+        let coreImage = dependencies.coreDataManager.heroItemCopy.compactMap { $0.heroImage }
         self.heroImageView.image = UIImage(data: coreImage.last ?? Data())
         
-        let coreName = coreDataManager.heroItemCopy.compactMap { $0.name }
+        let coreName = dependencies.coreDataManager.heroItemCopy.compactMap { $0.name }
         self.nameLabel.text = coreName.last
         
-        let coreDesc = coreDataManager.heroItemCopy.compactMap { $0.heroDesc }
+        let coreDesc = dependencies.coreDataManager.heroItemCopy.compactMap { $0.heroDesc }
         self.descriptionLabel.text = coreDesc.last
     }
     
@@ -59,7 +55,7 @@ final class MarvelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        confifureUI()
+        setupUI()
         self.spider_man_button.addTarget(self, action: #selector(spider_man_tapped), for: .touchUpInside)
         self.dead_pool_button.addTarget(self, action: #selector(dead_pool_tapped), for: .touchUpInside)
         self.venom_button.addTarget(self, action: #selector(venom_tapped), for: .touchUpInside)
@@ -72,7 +68,7 @@ private extension MarvelViewController {
     @objc private func spider_man_tapped() {
         print(ObjectIdentifier(self))
         
-        dataBaseManager.obtainPosts(docId: .spider_man) { [weak self] results in
+        self.dataBaseManager.obtainPosts(docId: .spider_man) { [weak self] results in
             switch results {
             case .success(let spider_man):
                 self?.navigationItem.title = spider_man?.name
@@ -84,7 +80,7 @@ private extension MarvelViewController {
         }
         
         self.spinner.startAnimating()
-        dataBaseManager.getImage(imageName: .spider_man) { [weak self] results in
+        self.dataBaseManager.getImage(imageName: .spider_man) { [weak self] results in
             switch results {
             case .success(let spider_man):
                 DispatchQueue.main.async {
@@ -100,7 +96,7 @@ private extension MarvelViewController {
     @objc private func dead_pool_tapped() {
         print(ObjectIdentifier(self))
         
-        dataBaseManager.obtainPosts(docId: .dead_pool) { [weak self] results in
+        self.dataBaseManager.obtainPosts(docId: .dead_pool) { [weak self] results in
             switch results {
             case .success(let dead_pool):
                 self?.navigationItem.title = dead_pool?.name
@@ -112,7 +108,7 @@ private extension MarvelViewController {
         }
         
         self.spinner.startAnimating()
-        dataBaseManager.getImage(imageName: .dead_pool) { [weak self] results in
+        self.dataBaseManager.getImage(imageName: .dead_pool) { [weak self] results in
             switch results {
             case .success(let dead_pool):
                 DispatchQueue.main.async {
@@ -128,7 +124,7 @@ private extension MarvelViewController {
     @objc private func venom_tapped() {
         print(ObjectIdentifier(self))
         
-        dataBaseManager.obtainPosts(docId: .venom) { [weak self] results in
+        self.dataBaseManager.obtainPosts(docId: .venom) { [weak self] results in
             switch results {
             case .success(let venom):
                 self?.navigationItem.title = venom?.name
@@ -140,7 +136,7 @@ private extension MarvelViewController {
         }
         
         self.spinner.startAnimating()
-        dataBaseManager.getImage(imageName: .venom) { [weak self] results in
+        self.dataBaseManager.getImage(imageName: .venom) { [weak self] results in
             switch results {
             case .success(let venom):
                 DispatchQueue.main.async {
@@ -153,7 +149,7 @@ private extension MarvelViewController {
         }
     }
     //MARK: - Setup constraints
-    private func confifureUI() {
+    private func setupUI() {
         
         view.addSubview(heroImageView)
         view.addSubview(nameLabel)

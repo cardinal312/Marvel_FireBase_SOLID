@@ -9,26 +9,18 @@ import UIKit
 
 final class AppCoordinator {
     
-    private var window: UIWindow
-    private var dataBaseManager: DataBaseManagerProtocol
-    private var uiManager: UIManagerFactoryProtocol
-    private var coreDataManager: CoreDataManagerProtocol
+    private let window: UIWindow
+    private let dependencies: AppDependency
     
-    init(window: UIWindow,
-         dataBaseManager: DataBaseManagerProtocol,
-         uiManager: UIManagerFactoryProtocol,
-         coreDataManager: CoreDataManagerProtocol) {
-        
+    init?(window: UIWindow?, dependencies: AppDependency? ) {
+        guard let window = window, let dependencies = dependencies else { return nil }
         self.window = window
-        self.dataBaseManager = dataBaseManager
-        self.uiManager = uiManager
-        self.coreDataManager = coreDataManager
+        self.dependencies = dependencies
     }
     
     func start() {
         
-        let dependecies = Dependencies(dataBaseManager: dataBaseManager, uiManagerFactory: uiManager, coreDataManager: coreDataManager)
-        let marvelVC = MarvelViewController(dependencies: dependecies)
+        let marvelVC = MarvelViewController(dependencies: dependencies)
         marvelVC.view.backgroundColor = .white
         marvelVC.navigationItem.title = "MARVEL 🔥"
         let nav = UINavigationController(rootViewController: marvelVC)

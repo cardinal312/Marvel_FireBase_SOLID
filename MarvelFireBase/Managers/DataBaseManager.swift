@@ -14,10 +14,6 @@ protocol DataBaseManagerProtocol {
     func getImage(imageName: Constants, completion: @escaping (Result<UIImage?, NetworkError>) -> Void)
 }
 
-enum NetworkError: Error {
-    case wrongUrl
-}
-
 final class DataBaseManager: DataBaseManagerProtocol {
     
     private let coreDataManager: CoreDataManagerProtocol
@@ -58,6 +54,9 @@ final class DataBaseManager: DataBaseManagerProtocol {
     }
 }
 
+enum NetworkError: Error {
+    case wrongUrl
+}
 
 
 
